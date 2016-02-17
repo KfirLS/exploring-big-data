@@ -9,6 +9,7 @@ for f in a:
         file = open("midrag.co.il/" + f, 'r')
         text = file.read()
         ucd_text = unicode(text, 'windows-1255').strip()
-        all =  re.findall('OPTION.value=(.*)<\/',ucd_text)
-        for lin in all:
-            print lin + "\n"
+        all =  re.finditer('OPTION.value=(\S*?)[\s>](.*?)<\/',ucd_text)
+        for a in all:
+            print a.group(1)
+            print a.group(2)
