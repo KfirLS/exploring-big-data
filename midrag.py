@@ -9,6 +9,7 @@ def download_whole_site():
 
 
 def get_categories():
+    cat_dict={}
     a = os.listdir("midrag.co.il")
     for f in a:
         if "disSectorSpesific.asp@" in f:
@@ -17,12 +18,26 @@ def get_categories():
             ucd_text = unicode(text, 'windows-1255').strip()
             all =  re.finditer('OPTION.value=(\S*?)[\s>](.*?)<\/',ucd_text)
             for a in all:
-                print a.group(1)
-                print a.group(2)
-                pass
+                cat_dict[a.group(1)] =a.group(2)
+                #print a.group(2)
+    return cat_dict
+
+def cat_tables(categories):
+    for category in categories:
+        print category, categories[category]
+        url_cat = category
+        
+
+def get_locations():
+    pass
+
+
+
 
 
 if __name__ == '__main__':
     if "midrag.co.il" not in os.listdir(os.getcwd()):
         download_whole_site()
-    get_categories()
+    categories = get_categories()
+    cat_tables(categories)
+    get_locations()
